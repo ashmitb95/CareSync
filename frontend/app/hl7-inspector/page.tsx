@@ -459,8 +459,13 @@ export default function HL7InspectorPage() {
                 </span>
               </div>
             ) : (
-              <div className="px-5 py-4 grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
-                <ExplanationRenderer text={explainMutation.data?.explanation ?? ""} />
+              <div
+                className="px-5 py-4 overflow-y-auto"
+                style={{ maxHeight: "16rem" }}
+              >
+                <div className="grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
+                  <ExplanationRenderer text={explainMutation.data?.explanation ?? ""} />
+                </div>
               </div>
             )}
           </div>
