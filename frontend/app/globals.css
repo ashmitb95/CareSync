@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+/* ============================================================
+   CARESYNC THEME SYSTEM
+   All palette values live in :root as CSS custom properties.
+   To create a new theme, override the --cs-* variables.
+   lib/themes.ts applies themes programmatically via JS.
+   ============================================================ */
+
+:root {
+  /* --- Primary palette (Clinical Teal) --- */
+  --cs-primary:         #0f766e;
+  --cs-primary-hover:   #0d9488;
+  --cs-primary-muted:   #f0fdfa;
+  --cs-primary-light:   #14b8a6;
+  --cs-primary-dark:    #115e59;
+
+  /* --- Backgrounds --- */
+  --cs-bg:              #f8fafc;   /* page background */
+  --cs-surface:         #ffffff;   /* card/panel surface */
+  --cs-surface-2:       #f1f5f9;   /* subtle nested surfaces */
+
+  /* --- Text (dark contrast on light backgrounds) --- */
+  --cs-text:            #0f172a;   /* primary text */
+  --cs-text-secondary:  #475569;   /* secondary/label text */
+  --cs-text-muted:      #94a3b8;   /* placeholder/disabled */
+
+  /* --- Borders --- */
+  --cs-border:          #e2e8f0;
+  --cs-border-strong:   #cbd5e1;
+
+  /* --- Semantic colors --- */
+  --cs-success:         #059669;
+  --cs-success-bg:      #ecfdf5;
+  --cs-warning:         #d97706;
+  --cs-warning-bg:      #fffbeb;
+  --cs-danger:          #dc2626;
+  --cs-danger-bg:       #fef2f2;
+  --cs-info:            #2563eb;
+  --cs-info-bg:         #eff6ff;
+
+  /* --- Clinical timeline event colors --- */
+  --cs-encounter:       #2563eb;   /* blue */
+  --cs-lab:             #059669;   /* emerald */
+  --cs-medication:      #d97706;   /* amber */
+  --cs-condition:       #dc2626;   /* red */
+
+  /* --- Sidebar nav --- */
+  --cs-nav-bg:          #0f172a;   /* slate-900 */
+  --cs-nav-border:      #1e293b;
+  --cs-nav-text:        #94a3b8;
+  --cs-nav-text-active: #f8fafc;
+  --cs-nav-item-active: #0f766e;   /* primary */
+  --cs-nav-item-hover:  #1e293b;
+
+  /* --- Shadows (for raised cards) --- */
+  --cs-shadow-xs:       0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --cs-shadow-sm:       0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.07);
+  --cs-shadow:          0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --cs-shadow-md:       0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+
+  /* --- Radii --- */
+  --cs-radius-sm:       6px;
+  --cs-radius:          10px;
+  --cs-radius-lg:       14px;
+  --cs-radius-xl:       20px;
+}
+
+/* ============================================================
+   @theme inline — exposes CSS vars as Tailwind utilities.
+   bg-cs-primary → background-color: var(--cs-primary)
+   text-cs-text  → color: var(--cs-text)
+   etc.
+   ============================================================ */
+@theme inline {
+  --color-cs-primary:         var(--cs-primary);
+  --color-cs-primary-hover:   var(--cs-primary-hover);
+  --color-cs-primary-muted:   var(--cs-primary-muted);
+  --color-cs-primary-light:   var(--cs-primary-light);
+  --color-cs-primary-dark:    var(--cs-primary-dark);
+
+  --color-cs-bg:              var(--cs-bg);
+  --color-cs-surface:         var(--cs-surface);
+  --color-cs-surface-2:       var(--cs-surface-2);
+
+  --color-cs-text:            var(--cs-text);
+  --color-cs-text-secondary:  var(--cs-text-secondary);
+  --color-cs-text-muted:      var(--cs-text-muted);
+
+  --color-cs-border:          var(--cs-border);
+  --color-cs-border-strong:   var(--cs-border-strong);
+
+  --color-cs-success:         var(--cs-success);
+  --color-cs-success-bg:      var(--cs-success-bg);
+  --color-cs-warning:         var(--cs-warning);
+  --color-cs-warning-bg:      var(--cs-warning-bg);
+  --color-cs-danger:          var(--cs-danger);
+  --color-cs-danger-bg:       var(--cs-danger-bg);
+  --color-cs-info:            var(--cs-info);
+  --color-cs-info-bg:         var(--cs-info-bg);
+
+  --color-cs-encounter:       var(--cs-encounter);
+  --color-cs-lab:             var(--cs-lab);
+  --color-cs-medication:      var(--cs-medication);
+  --color-cs-condition:       var(--cs-condition);
+
+  --color-cs-nav-bg:          var(--cs-nav-bg);
+  --color-cs-nav-border:      var(--cs-nav-border);
+  --color-cs-nav-text:        var(--cs-nav-text);
+  --color-cs-nav-text-active: var(--cs-nav-text-active);
+  --color-cs-nav-item-active: var(--cs-nav-item-active);
+  --color-cs-nav-item-hover:  var(--cs-nav-item-hover);
+
+  --radius-cs-sm: var(--cs-radius-sm);
+  --radius-cs:    var(--cs-radius);
+  --radius-cs-lg: var(--cs-radius-lg);
+  --radius-cs-xl: var(--cs-radius-xl);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--cs-bg);
+  color: var(--cs-text);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   REUSABLE COMPONENT CLASSES
+   ============================================================ */
+
+/* Raised card — the signature UI element */
+.cs-card {
+  background-color: var(--cs-surface);
+  border-radius: var(--cs-radius);
+  border: 1px solid var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
+}
+
+.cs-card-lg {
+  background-color: var(--cs-surface);
+  border-radius: var(--cs-radius-lg);
+  border: 1px solid var(--cs-border);
+  box-shadow: var(--cs-shadow-sm);
+}
+
+/* Sidebar item */
+.cs-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--cs-radius-sm);
+  color: var(--cs-nav-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.15s, color 0.15s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cs-nav-item:hover {
+  background-color: var(--cs-nav-item-hover);
+  color: var(--cs-nav-text-active);
+}
+
+.cs-nav-item.active {
+  background-color: color-mix(in srgb, var(--cs-nav-item-active) 15%, transparent);
+  color: var(--cs-nav-text-active);
+  border-left: 2px solid var(--cs-nav-item-active);
+  padding-left: 10px;
+}
+
+/* Primary button */
+.cs-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: var(--cs-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--cs-radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s, box-shadow 0.15s;
+  box-shadow: var(--cs-shadow-xs);
+}
+
+.cs-btn-primary:hover {
+  background-color: var(--cs-primary-hover);
+  box-shadow: var(--cs-shadow-sm);
+}
+
+/* Secondary/outline button */
+.cs-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 15px;
+  background-color: var(--cs-surface);
+  color: var(--cs-text);
+  border: 1px solid var(--cs-border-strong);
+  border-radius: var(--cs-radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.cs-btn-secondary:hover {
+  background-color: var(--cs-surface-2);
+  border-color: var(--cs-border-strong);
+}
+
+/* Input */
+.cs-input {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: var(--cs-surface);
+  color: var(--cs-text);
+  border: 1px solid var(--cs-border-strong);
+  border-radius: var(--cs-radius-sm);
+  font-size: 0.875rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+.cs-input:focus {
+  border-color: var(--cs-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cs-primary) 15%, transparent);
+}
+
+.cs-input::placeholder {
+  color: var(--cs-text-muted);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--cs-border-strong); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--cs-text-muted); }

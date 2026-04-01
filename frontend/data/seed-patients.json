@@ -1,0 +1,122 @@
+[
+  {
+    "resourceType": "Patient",
+    "id": "seed-001",
+    "name": [{ "use": "official", "family": "Nguyen", "given": ["Minh", "T"] }],
+    "gender": "male",
+    "birthDate": "1962-03-15",
+    "address": [{ "city": "Columbus", "state": "OH", "postalCode": "43215" }],
+    "_conditions": ["Type 2 Diabetes", "Hypertension", "Chronic Kidney Disease"],
+    "_careGaps": 3
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-002",
+    "name": [{ "use": "official", "family": "Okafor", "given": ["Adaeze"] }],
+    "gender": "female",
+    "birthDate": "1975-11-28",
+    "address": [{ "city": "Atlanta", "state": "GA", "postalCode": "30301" }],
+    "_conditions": ["Breast Cancer (remission)", "Depression"],
+    "_careGaps": 1
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-003",
+    "name": [{ "use": "official", "family": "Martinez", "given": ["Carlos", "R"] }],
+    "gender": "male",
+    "birthDate": "1958-07-04",
+    "address": [{ "city": "Houston", "state": "TX", "postalCode": "77001" }],
+    "_conditions": ["Coronary Artery Disease", "Hyperlipidemia", "Type 2 Diabetes"],
+    "_careGaps": 2
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-004",
+    "name": [{ "use": "official", "family": "Thompson", "given": ["Eleanor"] }],
+    "gender": "female",
+    "birthDate": "1945-09-12",
+    "address": [{ "city": "Phoenix", "state": "AZ", "postalCode": "85001" }],
+    "_conditions": ["Osteoporosis", "Hypertension", "Atrial Fibrillation"],
+    "_careGaps": 4
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-005",
+    "name": [{ "use": "official", "family": "Patel", "given": ["Priya"] }],
+    "gender": "female",
+    "birthDate": "1988-02-20",
+    "address": [{ "city": "Chicago", "state": "IL", "postalCode": "60601" }],
+    "_conditions": ["Asthma", "Anxiety Disorder"],
+    "_careGaps": 0
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-006",
+    "name": [{ "use": "official", "family": "Washington", "given": ["James", "L"] }],
+    "gender": "male",
+    "birthDate": "1970-06-18",
+    "address": [{ "city": "Baltimore", "state": "MD", "postalCode": "21201" }],
+    "_conditions": ["HIV (controlled)", "Hypertension"],
+    "_careGaps": 2
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-007",
+    "name": [{ "use": "official", "family": "Kim", "given": ["Soo-Jin"] }],
+    "gender": "female",
+    "birthDate": "1982-08-30",
+    "address": [{ "city": "Seattle", "state": "WA", "postalCode": "98101" }],
+    "_conditions": ["Rheumatoid Arthritis"],
+    "_careGaps": 1
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-008",
+    "name": [{ "use": "official", "family": "Reyes", "given": ["Miguel", "A"] }],
+    "gender": "male",
+    "birthDate": "1955-12-05",
+    "address": [{ "city": "San Antonio", "state": "TX", "postalCode": "78201" }],
+    "_conditions": ["COPD", "Type 2 Diabetes", "Hypertension", "Heart Failure"],
+    "_careGaps": 5
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-009",
+    "name": [{ "use": "official", "family": "Chen", "given": ["Wei"] }],
+    "gender": "male",
+    "birthDate": "1992-04-14",
+    "address": [{ "city": "San Francisco", "state": "CA", "postalCode": "94101" }],
+    "_conditions": ["Type 1 Diabetes"],
+    "_careGaps": 1
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-010",
+    "name": [{ "use": "official", "family": "Williams", "given": ["Dorothy", "M"] }],
+    "gender": "female",
+    "birthDate": "1950-01-22",
+    "address": [{ "city": "Detroit", "state": "MI", "postalCode": "48201" }],
+    "_conditions": ["Stroke (history)", "Hypertension", "Hyperlipidemia", "Depression"],
+    "_careGaps": 3
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-011",
+    "name": [{ "use": "official", "family": "Anderson", "given": ["Robert"] }],
+    "gender": "male",
+    "birthDate": "1965-05-09",
+    "address": [{ "city": "Minneapolis", "state": "MN", "postalCode": "55401" }],
+    "_conditions": ["Bipolar Disorder", "Obesity"],
+    "_careGaps": 2
+  },
+  {
+    "resourceType": "Patient",
+    "id": "seed-012",
+    "name": [{ "use": "official", "family": "Garcia", "given": ["Maria", "E"] }],
+    "gender": "female",
+    "birthDate": "1978-10-03",
+    "address": [{ "city": "Los Angeles", "state": "CA", "postalCode": "90001" }],
+    "_conditions": ["Lupus", "Hypertension"],
+    "_careGaps": 2
+  }
+]
