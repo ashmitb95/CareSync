@@ -1,0 +1,28 @@
+version: "3.9"
+
+# All secrets live in a single /.env at the repo root.
+# docker-compose reads it automatically; FastAPI reads ../env from backend/.
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "9100:9100"
+    env_file: .env
+    environment:
+      HAPI_FHIR_BASE_URL: https://hapi.fhir.org/baseR4
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 9100 --reload
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    env_file: .env
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:9100
+    depends_on:
+      - backend
