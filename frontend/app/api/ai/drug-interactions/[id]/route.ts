@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { logAiQuery } from "@/lib/db";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -47,5 +48,6 @@ export async function POST(
     interactions = [];
   }
 
+  logAiQuery("drug_interactions", id, `${medNames.length} meds`);
   return Response.json({ interactions });
 }

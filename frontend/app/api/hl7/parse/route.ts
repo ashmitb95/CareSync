@@ -1,9 +1,12 @@
 import { NextRequest } from "next/server";
+import { logHl7Message } from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   const { raw } = await req.json();
   if (!raw) return Response.json({ error: "raw message required" }, { status: 400 });
-  return Response.json(parseHL7(raw));
+  const result = parseHL7(raw);
+  logHl7Message(raw, result.messageType, result.segments);
+  return Response.json(result);
 }
 
 function parseHL7(raw: string) {

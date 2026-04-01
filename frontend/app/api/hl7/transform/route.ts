@@ -13,6 +13,8 @@ export async function POST(req: NextRequest) {
   const parsed = await parseRes.json();
 
   const fhirBundle = transformToFHIR(parsed);
+  const { logHl7Message } = await import("@/lib/db");
+  logHl7Message(raw, parsed.messageType, parsed.segments, fhirBundle);
   return Response.json({ parsed, fhirBundle });
 }
 
