@@ -7,9 +7,9 @@ import {
   Copy,
   Check,
   ChevronDown,
-  Sparkles,
-  RefreshCw,
+  BookOpen,
   FileCode,
+  Info,
 } from "lucide-react";
 import { TopBar } from "@/components/layout/TopBar";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
@@ -124,6 +124,89 @@ function SegmentRow({ name, fields }: { name: string; fields: Record<string, str
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+function ExplanationRenderer({ text }: { text: string }) {
+  const blocks = text.split(/\n\n+/).filter(Boolean);
+
+  return (
+    <div className="space-y-5">
+      {blocks.map((block, bi) => {
+        const lines = block.split("\n");
+        const firstLine = lines[0];
+        const isHeader = firstLine.startsWith("**") && firstLine.endsWith("**");
+        const title = isHeader ? firstLine.slice(2, -2) : null;
+        const bodyLines = isHeader ? lines.slice(1) : lines;
+
+        return (
+          <div key={bi}>
+            {title && (
+              <div
+                className="flex items-center gap-2 mb-2.5 pb-1.5 border-b"
+                style={{ borderColor: "var(--cs-border)" }}
+              >
+                <Info size={11} style={{ color: "var(--cs-primary)", flexShrink: 0 }} />
+                <span
+                  className="text-xs font-bold uppercase tracking-wide"
+                  style={{ color: "var(--cs-primary)" }}
+                >
+                  {title}
+                </span>
+              </div>
+            )}
+
+            <div className="space-y-1.5 pl-1">
+              {bodyLines.map((line, li) => {
+                if (!line.trim()) return null;
+
+                if (line.startsWith("• ")) {
+                  const content = line.slice(2);
+                  const colon = content.indexOf(":");
+                  if (colon > 0) {
+                    const label = content.slice(0, colon).trim();
+                    const value = content.slice(colon + 1).trim();
+                    return (
+                      <div key={li} className="flex items-baseline gap-2 text-xs">
+                        <span
+                          className="shrink-0 w-36 font-medium"
+                          style={{ color: "var(--cs-text-secondary)" }}
+                        >
+                          {label}
+                        </span>
+                        <span
+                          className="font-mono"
+                          style={{ color: "var(--cs-text)" }}
+                        >
+                          {value}
+                        </span>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div key={li} className="flex items-start gap-1.5 text-xs">
+                      <span style={{ color: "var(--cs-primary)", lineHeight: "1.6" }}>·</span>
+                      <span style={{ color: "var(--cs-text)" }}>{content}</span>
+                    </div>
+                  );
+                }
+
+                // Plain description text (e.g. after the Message Type header)
+                return (
+                  <p
+                    key={li}
+                    className="text-xs leading-relaxed"
+                    style={{ color: "var(--cs-text-secondary)" }}
+                  >
+                    {line.replace(/\*\*/g, "")}
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -254,7 +337,7 @@ export default function HL7InspectorPage() {
               disabled={!raw.trim() || explainMutation.isPending}
               className="cs-btn-primary text-xs flex items-center gap-1.5"
             >
-              {explainMutation.isPending ? <Spinner size="sm" /> : <Sparkles size={12} />}
+              {explainMutation.isPending ? <Spinner size="sm" /> : <BookOpen size={12} />}
               Explain
             </button>
           </div>
@@ -347,38 +430,38 @@ export default function HL7InspectorPage() {
           </div>
         </div>
 
-        {/* AI Explanation panel */}
+        {/* Explanation panel */}
         {(explainMutation.data || explainMutation.isPending) && (
-          <div
-            className="cs-card shrink-0"
-            style={{ borderColor: "color-mix(in srgb, var(--cs-primary) 30%, var(--cs-border))" }}
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <Sparkles size={14} style={{ color: "var(--cs-primary)" }} />
-              <span className="text-sm font-semibold" style={{ color: "var(--cs-text)" }}>
-                AI Explanation
+          <div className="cs-card shrink-0" style={{ padding: 0 }}>
+            <div
+              className="flex items-center gap-2 px-5 py-3 border-b"
+              style={{ borderColor: "var(--cs-border)", backgroundColor: "var(--cs-surface-2)" }}
+            >
+              <BookOpen size={13} style={{ color: "var(--cs-text-secondary)" }} />
+              <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--cs-text-secondary)" }}>
+                Message Breakdown
               </span>
-              <span
-                className="text-xs px-2 py-0.5 rounded-full font-medium text-white"
-                style={{ backgroundColor: "var(--cs-primary)" }}
-              >
-                Claude
-              </span>
+              {explainMutation.data && (
+                <span
+                  className="ml-auto text-xs px-2 py-0.5 rounded-full font-medium"
+                  style={{ backgroundColor: "var(--cs-surface)", color: "var(--cs-text-muted)", border: "1px solid var(--cs-border)" }}
+                >
+                  {explainMutation.data.explanation.match(/\*\*([^*]+)\*\*/)?.[1]?.split("—")[0]?.trim() ?? ""}
+                </span>
+              )}
             </div>
+
             {explainMutation.isPending ? (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 px-5 py-4">
                 <Spinner size="sm" />
                 <span className="text-sm" style={{ color: "var(--cs-text-secondary)" }}>
-                  Analyzing HL7 message…
+                  Parsing message structure…
                 </span>
               </div>
             ) : (
-              <p
-                className="text-sm leading-relaxed whitespace-pre-wrap"
-                style={{ color: "var(--cs-text)", lineHeight: "1.7" }}
-              >
-                {explainMutation.data?.explanation}
-              </p>
+              <div className="px-5 py-4 grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))" }}>
+                <ExplanationRenderer text={explainMutation.data?.explanation ?? ""} />
+              </div>
             )}
           </div>
         )}
