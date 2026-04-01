@@ -22,17 +22,18 @@ function parseHL7(raw: string) {
     const seg: Record<string, string> = {};
 
     if (segName === "MSH") {
-      seg["field_separator"] = fields[1] ?? "";
-      seg["encoding_characters"] = fields[2] ?? "";
-      seg["sending_application"] = fields[3] ?? "";
-      seg["sending_facility"] = fields[4] ?? "";
-      seg["receiving_application"] = fields[5] ?? "";
-      seg["receiving_facility"] = fields[6] ?? "";
-      seg["datetime"] = fields[7] ?? "";
-      seg["message_type"] = fields[9] ?? "";
-      seg["message_control_id"] = fields[10] ?? "";
-      seg["processing_id"] = fields[11] ?? "";
-      seg["version"] = fields[12] ?? "";
+      // MSH.1 is the field separator character (|) itself — not a split field.
+      // After splitting on |: fields[1]=MSH.2 (encoding chars), fields[2]=MSH.3, etc.
+      seg["encoding_characters"]  = fields[1] ?? "";
+      seg["sending_application"]  = fields[2] ?? "";
+      seg["sending_facility"]     = fields[3] ?? "";
+      seg["receiving_application"]= fields[4] ?? "";
+      seg["receiving_facility"]   = fields[5] ?? "";
+      seg["datetime"]             = fields[6] ?? "";
+      seg["message_type"]         = fields[8] ?? "";
+      seg["message_control_id"]   = fields[9] ?? "";
+      seg["processing_id"]        = fields[10] ?? "";
+      seg["version"]              = fields[11] ?? "";
     } else if (segName === "PID") {
       const nameParts = (fields[5] ?? "").split("^");
       seg["set_id"] = fields[1] ?? "";
